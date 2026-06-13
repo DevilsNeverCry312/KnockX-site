@@ -1,0 +1,390 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KnockX Store - Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Core Reset & Background --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: #cbd3dc; /* Light greyish-blue background from the original screen photo */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* --- Main Widget Container --- */
+        .store-container {
+            display: flex;
+            width: 100%;
+            max-width: 940px;
+            background-color: #f3f4f6;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        /* --- Left Side: Branding Panel --- */
+        .left-panel {
+            background: linear-gradient(135deg, #0b0e14 0%, #151a26 100%);
+            width: 45%;
+            padding: 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle background glow to match the purple aesthetic */
+        .left-panel::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(147, 51, 234, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .brand-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1;
+        }
+
+        .brand-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #9333ea;
+            box-shadow: 0 0 10px rgba(147, 51, 234, 0.5);
+        }
+
+        .brand-name {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #ffffff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .promo-content {
+            margin: 40px 0;
+            z-index: 1;
+        }
+
+        .promo-title {
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .features-list {
+            list-style: none;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: #9ca3af;
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+
+        .feature-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            background-color: rgba(147, 51, 234, 0.2);
+            border: 1px solid #9333ea;
+            border-radius: 50%;
+            color: #c084fc;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        /* --- Right Side: Authorization Form --- */
+        .right-panel {
+            width: 55%;
+            background-color: #f7f6f5; /* Off-white container look */
+            padding: 55px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .auth-tag {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #8b8a89;
+            margin-bottom: 8px;
+        }
+
+        .form-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1c1b1a;
+            margin-bottom: 12px;
+        }
+
+        .form-subtitle {
+            font-size: 14px;
+            color: #6b6a69;
+            margin-bottom: 24px;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1c1b1a;
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Icon placement inside the field */
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            width: 16px;
+            height: 16px;
+            opacity: 0.4;
+        }
+
+        .store-input {
+            width: 100%;
+            padding: 14px 16px 14px 44px;
+            border: 1px solid #d1d0cf;
+            border-radius: 12px;
+            font-size: 15px;
+            background-color: transparent;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .store-input:focus {
+            border-color: #9333ea;
+            box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.15);
+        }
+
+        .input-hint {
+            font-size: 11px;
+            color: #8b8a89;
+            margin-top: -8px;
+            margin-bottom: 24px;
+        }
+
+        /* Premium purple login button */
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(126, 34, 206, 0.3);
+            transition: transform 0.1s, opacity 0.2s;
+            margin-top: 8px;
+        }
+
+        .login-btn:hover {
+            opacity: 0.95;
+        }
+
+        .login-btn:active {
+            transform: scale(0.99);
+        }
+
+        /* Footer elements */
+        .security-note {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #8b8a89;
+            margin-top: 25px;
+        }
+
+        .security-icon {
+            width: 14px;
+            height: 14px;
+        }
+
+        .help-link {
+            align-self: flex-end;
+            font-size: 12px;
+            color: #6b6a69;
+            text-decoration: none;
+            margin-top: 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .help-link:hover {
+            color: #9333ea;
+            text-decoration: underline;
+        }
+
+        /* Responsive handling for smaller screens */
+        @media (max-width: 768px) {
+            .store-container {
+                flex-direction: column;
+                max-width: 450px;
+            }
+            .left-panel, .right-panel {
+                width: 100%;
+                padding: 35px;
+            }
+            .promo-content {
+                margin: 25px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="store-container">
+        <div class="left-panel">
+            <div class="brand-header">
+                <img class="brand-logo" src="data:image/jpeg;base64,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" alt="KnockX Logo">
+                <span class="brand-name">KnockX</span>
+            </div>
+
+            <div class="promo-content">
+                <h1 class="promo-title">Everything for your game</h1>
+                <p style="font-size: 15px; color: #9ca3af; margin-bottom: 25px; font-weight: 300;">
+                    Log in with your credentials to browse the store and continue shopping securely.
+                </p>
+                <ul class="features-list">
+                    <li class="feature-item">
+                        <span class="feature-icon">✓</span> Instant purchase delivery
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-icon">✓</span> More than 50,000 happy supporters
+                    </li>
+                </ul>
+            </div>
+
+            <div style="font-size: 11px; color: #4b5563; font-weight: 500; z-index: 1;">
+                &copy; 2026 KnockX Network. All rights reserved.
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <span class="auth-tag">Authorization</span>
+            <h2 class="form-title">Log in to the store</h2>
+            <p class="form-subtitle">Enter your details to access your account.</p>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label class="input-label" for="username">In-game nickname</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <input 
+                            type="text" 
+                            id="username" 
+                            class="store-input" 
+                            placeholder="In-game nickname" 
+                            required 
+                            autocomplete="username"
+                        >
+                    </div>
+                </div>
+                <div class="input-hint">Type your nickname exactly as it appears in the game.</div>
+
+                <div class="input-group">
+                    <label class="input-label" for="password">Password</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+                        </svg>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            class="store-input" 
+                            placeholder="Enter your password" 
+                            required 
+                            autocomplete="current-password"
+                        >
+                    </div>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    Log in <span>&rarr;</span>
+                </button>
+            </form>
+
+            <div class="security-note">
+                <svg class="security-icon" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <span>Your login session is fully encrypted and secure.</span>
+            </div>
+
+            <a href="#" class="help-link">Forgot password or need help?</a>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault(); // Prevents page reload
+            
+            const usernameInput = document.getElementById('username').value.trim();
+            const passwordInput = document.getElementById('password').value;
+            
+            if (usernameInput && passwordInput) {
+                // Client-side execution visual confirmation
+                alert(`Authentication request sent for: "${usernameInput}"`);
+                
+                // Ready for backend linkage (e.g., fetch authentication APIs)
+            }
+        }
+    </script>
+</body>
+</html>

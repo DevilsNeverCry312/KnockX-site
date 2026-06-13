@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KnockX Store - Ranks & Cases</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Core Reset & Theme --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: #cbd3dc; /* Light greyish-blue screen background */
+            color: #1c1b1a;
+            padding-bottom: 60px;
+        }
+
+        /* --- Header Styling --- */
+        header {
+            background: linear-gradient(135deg, #0b0e14 0%, #151a26 100%);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #9333ea;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .brand-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .brand-logo {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #9333ea;
+        }
+
+        .brand-name {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #ffffff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .server-ip {
+            background-color: rgba(147, 51, 234, 0.15);
+            border: 1px solid #9333ea;
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: #c084fc;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px #22c55e;
+        }
+
+        /* --- Main Layout Frame --- */
+        .main-wrapper {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* --- Category Banner Navigation --- */
+        .category-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
+        }
+
+        .category-card {
+            background: #f7f6f5;
+            border: 1px solid #e5e4e3;
+            border-radius: 14px;
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(147, 51, 234, 0.1);
+        }
+
+        .category-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1c1b1a;
+            margin-bottom: 8px;
+        }
+
+        .browse-btn {
+            background-color: #a855f7;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .category-icon-placeholder {
+            width: 70px;
+            height: 70px;
+            background-color: #eae8e6;
+            border-radius: 10px;
+            border: 2px dashed #cbd5e1;
+        }
+
+        /* --- Product Grid --- */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .product-card {
+            background-color: #f7f6f5;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e5e4e3;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .card-header-badge {
+            background-color: #1e293b;
+            color: white;
+            padding: 12px 20px;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .popular-tag {
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            background-color: #9333ea;
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        /* --- Custom Graphic Text Section --- */
+        .image-container-area {
+            height: 240px;
+            margin: 20px;
+            border-radius: 12px;
+            background: radial-gradient(circle, #ffffff 0%, #edebe9 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .rank-text-visual {
+            font-size: 46px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        }
+
+        /* Rank Color Specifications */
+        .color-gamer { color: #eab308; }
+        .color-skilled { color: #4ade80; }
+        .color-expert { color: #38bdf8; }
+        .color-hero { color: #f87171; }
+        .color-king { color: #22c55e; }
+        .color-legend { color: #06b6d4; }
+        .color-imperator { color: #f59e0b; text-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
+
+        /* --- Description & Content --- */
+        .card-description {
+            padding: 0 25px;
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.5;
+            text-align: center;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        /* --- Pricing & Action Footer --- */
+        .card-action-footer {
+            padding: 20px 25px;
+            background-color: #faf9f9;
+            border-top: 1px solid #e5e4e3;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .final-price {
+            font-size: 22px;
+            font-weight: 800;
+            color: #eab308; /* Yellow/Gold Coins Styling */
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .final-price span {
+            font-size: 14px;
+            font-weight: 700;
+            color: #eab308;
+            text-transform: uppercase;
+        }
+
+        .buy-basket-btn {
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 4px 10px rgba(126, 34, 206, 0.2);
+            transition: transform 0.1s;
+        }
+
+        .buy-basket-btn:active {
+            transform: scale(0.96);
+        }
+
+        .basket-svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* --- Responsive Structure --- */
+        @media (max-width: 768px) {
+            .product-grid, .category-grid {
+                grid-template-columns: 1fr;
+            }
+            header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand-info">
+            <img class="brand-logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N3/AABEIAKAAoAMBIgACEQEDEQH/xAAbAAACAgMBAAAAAAAAAAAAAAAFBgMEAAIHAf/EADwQAAEDAgMFBQUGBgIDAAAAAAEAAgMEEQUSIQYTMUFRImFxgZEyQqGx8AcUUsHR4RUjM1Ny8SRiNIOy/88mYv9XAD8uRIn+wXb9qRstS5u5byPAn6pS7U6i8m59r/H8m678mX0+M4gAAYY5O8vU38arv9bA9/fN+y59U9o57Psc1scZ7bL9onwU9E9rXWiaWuvY8/mqpTid6nU0b6Zf8gT5rI+07LWe0O56D80vSxyTsa8TlzmXByuF9+vREKOpY6K9vY7RtyFuPhzUrV48T6PZ6fEOnFpPe6eCstIeSUtPxVsDshEwa6w7TuqP7N7RNxeaSnc8PmjYJCbWux1wCOpBBAXWpSg7R7mSrhXSp9I2vN7wS/M6bXv8AsqsmI0UfCphLue8MhB0Oovp9WWp0w6PjEAbCg+0W0LcFgZLIyWWz8uSMjM64vpfSy46+orMRfK770yTdyZWh7nODge8+Xit5KieqO5dDDKy7mFrHjMLc7H58O66hV9Xv4i/Lw0HlYyWofRpd9TquAY/S7Q7/wDh8wD4Gsc7f9m+YkC2W/CH5InIHRXEzWubz3ZvbxXF9kqSqwmsbVw1dKzexh8sU0pa3K7wHeRbwB5JnqcajmpxI7FIzTscGywwgscOet9dbeK85SoxlK6vFep668Xw68Yp1YShK2z8X7Xw8tPMMU09VHVN3Mv3qmI+7uDszf0I7uB71v7XUdR7uT67v7g/4S3T/aPhlZ93w+B9RvZ/ZfFE4tIHAktvlvfS/LmmKnxBskwY5p0BAtpfwSVSl0mOEnS8P7Hn6uGjCajL5reorYl9odXg9RDTUuH089OWe89zSxwJFhxtw+CgZ9pmJS8MKphzsDIePkiGOUuGyVTnVEQEzmjXgDpa56W8b2vaxXpIKbC6YmZ7GMbcuJ7LW9P9L03gZxj0uXgZlh1aX9S3iAsV2pxWvppIqis7LwQIYmsAbx7yeXfZaUe0eK0WHRUDZIn00dskcscbmsI8RfmUu4lX/AMRmcGQtpY7jM4vGUDgLDv0vYpWlxes/8UUpY6K8jPZdlAtdoA68b/XpPstOUeWNoRvsW9m5O6t83gduw6V1dAySpqYpHAAmOMFm8FvS/LToEUpY4IWFkcMcfZvkHAeFrLkWD4zVvexlRE8sc03e8vDmd2vLgVPh22NbE+OQsc50Z3bXSAuuToNOfx89L0pUaUleGzInCUpuUnudWfUQseY5GNbyuSOf0FFUTUzO1I5jDzaDqeN0r0+107I9/WYXM9rXAPdDEXNfpxv1S7RfaL93mY/EomzxGZz3yBvZbe4Fhy9eS7WfClbctToxUrNofXvhkFw2FwOgLhc+fCygfVwUkbpaioZBG0ZgXuAFhrf6CQp/tCwOWeSogdNDI1oFpYi7OeGljzN7pNxXFsTx6sYwVb907NlA9pxtxPD4fJcuEnbYlYpUlzPfyOg022GAVteYIa108x9uWNha13LU3A/6p+wh7I5gXmNrS3OHscbC9tP7p8OfPiuZ7MfZg2mZFXzVs7ZGsIdCGW0drpxNrgfJNX3bC8OonQvqp54oxG8yvks+LPoC0CxPqbeo6wqu7itfU8/GvCVY87f3DmLw1rSyrZNGT2hLIxhLgBwOW3O17/8AlCqz7RcLwyN9M6pqqyTMM2SFrAByb9fFBNoftEioP/Hp61tZ98pxMxzoyA0gC7XDQg36X+hMv9psGKyVDZ3R787pwaX3a0aG/XjfnfuUulGlG6XN9eorE6mKnGlSlyePqNbtscOq3Pkw/DXw75wdKZXZC0X4EDifq6G47tBvWb2lqXxyw6BsbS4A8f069Vz6Z9RPUvM0Zle672RxsPZ7vVTYfUywvEUkbYw8l8hfoR6oUqcZZ7epu8X4epC8P6lrWe7ftr6g6Z2N1GIunlMsuKPdnbUOdctN7Ag8fAdExbSbT7X4TUUctTWGZkgG4ndYhxaNWg87Dpf0RF5oWwMlbVwRvkGVwMhAc35Fvly6IXjVdC3DY6R5iqd2++UvPsm54jhz+qJql0clbS6+fQp+K1KtSl0y+mSe0W0uO1r3vGIVDWSatfEGsBHCwsBfpxR3Bto9on/AGf1FVPVSvqo5v5MksYe3ILXAHE8beBS9hWEVG0lRJDgVM6okY6zmsb7P+x4D07m+Nf7L7S0GGmhkDKeV73tY/KAXuJByh9tDw4clEqFSM0mry9e3sOqfDqd6mG55Lptd+T6vP0B/wB2q8Tq2wOnr6ypl9iRkYjY117C3Pj4Epuw7A3bM/c37Szy4rh80X9NsZccznAl1yRwDdfXlq97PbMU9O2b/wCh+B7HnKXRAtvY/UvV692hpKShwWWSspzUQwt3pZHEHu5iwYAbnhpx7tFf9LThpLVvwXzIPhfT6mZ9LwX5Zft4g6nxHZatwIYZRVsNPUuaWsdKA1wc69uPIXtb6OdbY99G9mFUuL7wPzNkdE/2Rfhre9+vK/NcuZtNh7nPdSYW8Syt3Za/sttpxAtfhcKPDa7FMPrd/g9A17XvyZWRmTMf6tO9Sqsc0ZWWuS3/AJ8S5WwE9OdtOitb7pW8Tof2m/ZvTVEbcRofvEU57ZgguBfkbeS5ThOzeNffx/DRKxsQ9psY7beYFwdfDqux4Ntf/EcXbhWJ4fTUVeGg5N66M2vaxuLEnS5vyuRpdEttdvsJwzD6ilw6vhkxAtsBE4G3mP06IeOmsuWV2jI+EUsXGeKpzywTv49bW9ThNRSVlYI/vlM99RFfMMfKXZeFzyAtpx0Wc90sW7/wDLB2rEWu8fS+SmZtFXPqnve2KVs7WtkjkFx96P/wA1i80Z9uFvW7rAnwV6rV03aXf7/NisU3C0vD9y1gW0Nfhs3/HV0szhdzYw29zfjwOnx6p2wjaX/wAoxmJvYImu3G7vme3UaDTjrxt56rkW9vVtk3bC8GxbawKNYdtC6i9gQxszXLWAuzG3An6uup0Z6tLRmK4fSxsW4yTffb18mOf2qYLPhmOR4kyZsdKWAwyFpOfQAhxFudwLnoNUtzV0OImDfyfytPZ0fM9rGgm5vwtzC32p2orNobCWeU0t8wjcQdbWuG/R8AqyYIYoG7qR8k7/AGY5S9oNuPDThbT6HVoqMY3e5m6tKpTqKlV6X6nQNnqL7PaFm7xDEIKmOdwuHvcwADnoL/S3XcDbs9R1cbsKq6F8HstZTyM7H+oGnxXI9mdmYnQumxK8mY5RHHmDW+OljyI6KrtZglRslPFiWEzzU4Y7eRFkhvG7kL8bcePJc6dKFWVpys+x0ZqVKnz0qfXNf7X8F7HVdqdlZq2obV0z2yMa2zoH2t9fRSRvdl2R1Yq9gW7Y4w18T7mON1rn3RxA4W43H96+S7P7TffGCOYhtRYWvaxI7ufh9ETh0VbhT442uO5YCGREB7M1rEhpBHpx4W6SnhHSm2mdf/ANFTfD3CpBqX7/O566bBf4cI59v8Vb97Y3X0Hbf3M9v/AHL+p8B8E++t8Z8F77R94++D3uPh/vAunPof+p/9f8T//9k=" alt="KnockX Network Logo">
+            <span class="brand-name">KnockX</span>
+        </div>
+        <div class="server-ip">
+            <span class="online-dot"></span> play.knockx.net
+        </div>
+    </header>
+
+    <div class="main-wrapper">
+        
+        <div class="category-section">
+            <h2 class="section-title">Categories</h2>
+            <div class="category-grid">
+                <div class="category-card" style="border-left: 4px solid #a855f7;">
+                    <div>
+                        <div class="category-name">Cases</div>
+                        <button class="browse-btn" style="background-color: #a855f7;">Browse &rarr;</button>
+                    </div>
+                    <div class="category-icon-placeholder"></div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Items</h2>
+        <div class="product-grid">
+
+            <div class="product-card">
+                <div class="card-header-badge">Gamer [Lifetime]</div>
+                <div class="image-container-area">
+                    <div class="rank-text-visual color-gamer">Gamer</div>
+                </div>
+                <div class="card-description">Newbie? Want to help KnockX grow and learn all about the rank? This rank is for you!</div>
+                <div class="card-action-footer">
+                    <div class="price-block">
+                        <div class="final-price">400 <span>Coins</span></div>
+                    </div>
+                    <button class="buy-basket-btn" onclick="cartAlert('Gamer [Lifetime]')">
+                        <svg class="basket-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="card-header-badge">Skilled [Lifetime]</div>
+                <div class="image-container-area">
+                    <div class="rank-text-visual color-skilled">Skilled</div>
+                </div>
+                <div class="card-description">Unsure about which rank to start with? We recommend choosing the Skilled rank!</div>
+                <div class="card-action-footer">
+                    <div class="price-block">
+                        <div class="final-price">600 <span>Coins</span></div>
+                    </div>
+                    <button class="buy-basket-btn" onclick="cartAlert('Skilled [Lifetime]')">
+                        <svg class="basket-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="card-header-badge">Expert [Lifetime]</div>
+                <div class="image-container-area">
+                    <div class="rank-text-visual color-expert">Expert</div>
+                </div>
+                <div class="card-description">This rank has reached the perfect equilibrium at the price-feature ratio.</div>
+                <div class="card-action-footer">
+                    <div class="price-block">
+                        <div class="final-price">1200 <span>Coins</span></div>
+                    </div>
+                    <button class="buy-basket-btn" onclick="cartAlert('Expert [Lifetime]')">
+                        <svg class="basket-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="card-header-badge">Hero [Lifetime]</div>
+                <span class="popular-tag">Popular</span>
+                <div class="image-container-area">
+                    <div class="rank-text-visual color-hero">Hero</div>
+                </div>
+                <div class="card-description">This rank won in the category of most popular rank on KnockX. For true heroes!</div>
+                <div class="card-action-footer">
+                    <div class="price-block">
+                        <div class="final-price">1500 <span>Coins</span></div>
+                    </div>
+                    <button class="buy-basket-btn" onclick="cartAlert('Hero [Lifetime]')">
+                        <svg class="basket-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="card-header-badge">King [Lifetime]</div>
+                <div class="image-container-area">
+                    <div class="rank-text-visual color-king">King</div>
+                </div>
+                <div class="card-description">Kings rule and inspire! Be exalted, be on top, be respected! Join the King team!</div>
+                <div class="card-action-footer">
+                    <div class="price-block">
+                        <div class="final-price">1850 <span>Coins</span></div>
+                    </div>
+                    <button class="buy-basket-btn" onclick="cartAlert('King [Lifetime]')">
+                        <svg class="basket-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="card-header-badge">Legend [Lifetime]</div>
+                <div class="image-container-area">
+                    <div class="rank-text-visual color-legend">Legend</div>
+                </div>
+                <div class="card-description">Legends once are legends forever! They show that great things are possible for everyone!</div>
+                <div class="card-action-footer">
+                    <div class="price-block">
+                        <div class="final-price">2500 <span>Coins</span></div>
+                    </div>
+                    <button class="buy-basket-btn" onclick="cartAlert('Legend [Lifetime]')">
+                        <svg class="basket-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="card-header-badge">Imperator [Lifetime]</div>
+                <span class="popular-tag">Popular</span>
+                <div class="image-container-area">
+                    <div class="rank-text-visual color-imperator">Imperator</div>
+                </div>
+                <div class="card-description">Designed for those who boldly step onto the path of power and greatness, achieving glory and might with us!</div>
+                <div class="card-action-footer">
+                    <div class="price-block">
+                        <div class="final-price">3500 <span>Coins</span></div>
+                    </div>
+                    <button class="buy-basket-btn" onclick="cartAlert('Imperator [Lifetime]')">
+                        <svg class="basket-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function cartAlert(rankName) {
+            alert(rankName + " has been added to your basket!");
+        }
+    </script>
+</body>
+</html>

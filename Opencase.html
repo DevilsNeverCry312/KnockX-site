@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KnockX Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Reset & Creative Color Variables --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef9f1 0%, #fdf2f7 50%, #fff7ed 100%);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        /* Outer Frame with multi-color pastel glow */
+        .store-modal-frame {
+            display: flex;
+            width: 100%;
+            max-width: 1140px;
+            background-color: #f5f8f6;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(168, 218, 180, 0.15), 
+                        0 10px 30px rgba(244, 182, 214, 0.15), 
+                        0 5px 15px rgba(251, 194, 130, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        /* --- LEFT DISPLAY PANEL --- */
+        .left-content-panel {
+            width: 53%;
+            background-color: #ffffff;
+            padding: 40px 50px 40px 50px;
+            border-right: 1px solid rgba(238, 249, 241, 0.9);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-logo-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .brand-logo-icon {
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, #4ade80 0%, #f472b6 50%, #fb923c 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 16px;
+            box-shadow: 0 4px 10px rgba(244, 114, 182, 0.3);
+        }
+
+        .brand-name-text {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1e1e24;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .product-header-block {
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .product-image-frame {
+            width: 114px;
+            height: 114px;
+            background: linear-gradient(135deg, #fdf2f7 0%, #fff7ed 100%);
+            border: 2px dashed #fb923c;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            flex-shrink: 0;
+            box-shadow: 0 8px 20px rgba(251, 146, 60, 0.1);
+        }
+        
+        .product-image-frame::before {
+            content: '🎁';
+        }
+
+        .product-title-pricing {
+            padding-top: 4px;
+        }
+
+        .product-title-pricing h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f1f1f;
+            margin-bottom: 6px;
+            letter-spacing: -0.3px;
+        }
+
+        .price-discount-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .strike-through-price {
+            font-size: 13px;
+            color: #929298;
+            text-decoration: line-through;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .orange-discount-badge {
+            background-color: #ffedd5;
+            color: #ea580c;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid #fed7aa;
+        }
+
+        .bold-price-label {
+            font-size: 38px;
+            font-weight: 800;
+            color: #111111;
+            line-height: 1;
+        }
+
+        .bold-price-label span {
+            font-size: 14px;
+            font-weight: 700;
+            color: #111111;
+            margin-left: 4px;
+            text-transform: uppercase;
+        }
+
+        .horizontal-break {
+            height: 2px;
+            background: linear-gradient(90deg, #eef9f1, #fdf2f7, #fff7ed);
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .case-inclusions-box {
+            font-size: 14px;
+            color: #44444a;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .case-inclusions-box p {
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #111111;
+            font-size: 14.5px;
+        }
+
+        .case-inclusions-box ul {
+            list-style: none;
+        }
+
+        .case-inclusions-box li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .case-inclusions-box li::before {
+            content: "✦";
+            position: absolute;
+            left: 0;
+            color: #fb923c;
+            font-weight: bold;
+        }
+
+        .rank-tag {
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+        .rank-gamer { background-color: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+        .rank-skilled { background-color: #fce7f3; color: #be185d; border: 1px solid #fbcfe8; }
+        .rank-expert { background-color: #ffedd5; color: #c2410c; border: 1px solid #fed7aa; }
+
+        /* --- ODDS OF GETTING RARITY COMPONENT --- */
+        .odds-wrapper {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .odds-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .odds-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #111111;
+        }
+
+        .odds-segmented-bar {
+            position: relative; /* FIXED: Keeps absolute text strictly inside this bar */
+            display: flex;
+            width: 100%;
+            height: 28px;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #f3f4f6;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+            align-items: center;
+        }
+
+        .rarity-segment {
+            height: 100%;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Interactive expansion growth engine */
+        .odds-segmented-bar:hover .rarity-segment {
+            opacity: 0.5;
+        }
+        .odds-segmented-bar .rarity-segment:hover {
+            transform: scaleX(1.02);
+            opacity: 1;
+        }
+
+        /* Color configurations for each rarity tier */
+        .seg-common { background-color: #86efac; width: 39%; }      /* Green */
+        .seg-uncommon { background-color: #fef08a; width: 25%; }    /* Yellow */
+        .seg-epic { background-color: #93c5fd; width: 17%; }        /* Blue */
+        .seg-exotic { background-color: #fca5a5; width: 11%; }      /* Red */
+        .seg-legendary { background-color: #fdba74; width: 6%; }    /* Gold */
+        .seg-forbidden { background-color: #ef4444; width: 2%; }    /* Dark Red */
+
+        /* FIXED: Perfect absolute centering inside the bar frame layer */
+        .center-overlay-text {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 13px;
+            font-weight: 700;
+            color: #374151;
+            pointer-events: none;
+            z-index: 5;
+            letter-spacing: 0.2px;
+            transition: all 0.15s ease;
+        }
+
+        /* --- RIGHT SIDE INTERACTIVE FORM PANEL --- */
+        .right-form-panel {
+            width: 47%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .instant-delivery-card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border: 1px solid #bbf7d0;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(220, 252, 231, 0.4);
+        }
+
+        .instant-delivery-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(220,252,231,0.4) 0%, rgba(255,237,213,0.2) 100%);
+            border-radius: 16px;
+            pointer-events: none;
+        }
+
+        .delivery-icon-frame {
+            position: relative;
+            z-index: 1;
+            width: 54px;
+            height: 54px;
+            background: #ffffff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+            border: 1px solid #eef9f1;
+        }
+        .delivery-icon-frame::after {
+            content: '🚀';
+        }
+
+        .delivery-text-block h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #15803d;
+            margin-bottom: 2px;
+        }
+
+        .delivery-text-block p {
+            font-size: 13px;
+            color: #4b5563;
+            line-height: 1.4;
+        }
+
+        .purchase-white-card {
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 30px 35px;
+            border: 1px solid #fbcfe8;
+            box-shadow: 0 10px 25px rgba(252, 231, 243, 0.5);
+        }
+
+        .purchase-white-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: #111111;
+            margin-bottom: 6px;
+        }
+
+        .purchase-white-card .sub-caption {
+            font-size: 13px;
+            color: #727278;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            width: 100%;
+        }
+
+        .form-row label {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1c1b1a;
+            width: 95px;
+            flex-shrink: 0;
+        }
+
+        .input-box-container {
+            flex-grow: 1;
+        }
+
+        .input-box-container input {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1px solid #fed7aa;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            background-color: #fff7ed;
+            color: #111111;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .input-box-container input:focus {
+            border-color: #fb923c;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.15);
+        }
+
+        .terms-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13px;
+            color: #111111;
+            line-height: 1.4;
+            margin-bottom: 25px;
+            cursor: pointer;
+        }
+
+        .terms-row input {
+            margin-top: 2px;
+            accent-color: #ea580c;
+        }
+
+        .terms-row a {
+            color: #ea580c;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .terms-row a:hover {
+            text-decoration: underline;
+        }
+
+        .btn-mixed-submit {
+            background: linear-gradient(135deg, #fb923c 0%, #f472b6 50%, #4ade80 100%);
+            color: #ffffff;
+            border: none;
+            width: 100%;
+            border-radius: 14px;
+            padding: 16px 24px;
+            cursor: pointer;
+            text-align: left;
+            box-shadow: 0 6px 20px rgba(244, 114, 182, 0.3);
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .btn-mixed-submit:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
+        .btn-large-txt {
+            font-size: 15px;
+            font-weight: 800;
+            text-transform: uppercase;
+            display: block;
+            letter-spacing: 0.6px;
+            margin-bottom: 2px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-small-txt {
+            font-size: 11px;
+            font-weight: 500;
+            color: #ffffff;
+            opacity: 0.9;
+            display: block;
+        }
+
+        @media (max-width: 860px) {
+            .store-modal-frame {
+                flex-direction: column;
+            }
+            .left-content-panel, .right-form-panel {
+                width: 100%;
+                padding: 30px;
+            }
+            .odds-wrapper {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="store-modal-frame">
+        
+        <div class="left-content-panel">
+            <div class="brand-logo-row">
+                <div class="brand-logo-icon">K</div>
+                <div class="brand-name-text">KnockX</div>
+            </div>
+            
+            <div class="product-header-block">
+                <div class="product-image-frame"></div>
+                <div class="product-title-pricing">
+                    <h2>Spring Cases x25</h2>
+                    <div class="price-discount-row">
+                        <span class="strike-through-price">222 Coins</span>
+                        <span class="orange-discount-badge">-10%</span>
+                    </div>
+                    <div class="bold-price-label">200 <span>Coins</span></div>
+                </div>
+            </div>
+
+            <div class="horizontal-break"></div>
+
+            <div class="case-inclusions-box">
+                <p>This case contains:</p>
+                <ul>
+                    <li>500 Coins or 650 Coins</li>
+                    <li>
+                        <span style="color: #111111; font-weight: 700;">PERMANENT</span> rank: 
+                        <span class="rank-tag rank-gamer">GAMER</span>, 
+                        <span class="rank-tag rank-skilled">SKILLED</span>, 
+                        <span class="rank-tag rank-expert">EXPERT</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="odds-wrapper">
+                <div class="odds-header-row">
+                    <span class="odds-title">Odds of getting:</span>
+                </div>
+                
+                <div class="odds-segmented-bar" id="oddsBarContainer">
+                    <div class="center-overlay-text" id="barOverlayText">Hover to view</div>
+                    <div class="rarity-segment seg-common" data-rarity="Common" data-chance="39%"></div>
+                    <div class="rarity-segment seg-uncommon" data-rarity="Uncommon" data-chance="25%"></div>
+                    <div class="rarity-segment seg-epic" data-rarity="Epic" data-chance="17%"></div>
+                    <div class="rarity-segment seg-exotic" data-rarity="Exotic" data-chance="11%"></div>
+                    <div class="rarity-segment seg-legendary" data-rarity="Legendary" data-chance="6%"></div>
+                    <div class="rarity-segment seg-forbidden" data-rarity="Forbidden" data-chance="2%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-form-panel">
+            
+            <div class="instant-delivery-card">
+                <div class="delivery-icon-frame"></div>
+                <div class="delivery-text-block">
+                    <h4>Instant Delivery</h4>
+                    <p>You get purchase immediately after payment. Fast, no delays, and awaits!</p>
+                </div>
+            </div>
+
+            <div class="purchase-white-card">
+                <h3>Purchase details</h3>
+                <p class="sub-caption">Review your nickname and accept the terms and conditions.</p>
+
+                <form id="exactStoreForm" onsubmit="triggerGatewayRedirect(event)">
+                    <div class="form-row">
+                        <label for="nicknameField">Receiver:</label>
+                        <div class="input-box-container">
+                            <input type="text" id="nicknameField" value="gg" required autocomplete="off">
+                        </div>
+                    </div>
+
+                    <label class="terms-row">
+                        <input type="checkbox" id="agreeCheck" checked required>
+                        <span>I do agree to the <a href="#">Rules</a>, <a href="#">Terms and conditions</a>.</span>
+                    </label>
+
+                    <button type="submit" class="btn-mixed-submit">
+                        <span class="btn-large-txt">CONTINUE</span>
+                        <span class="btn-small-txt">Continue to payment methods</span>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        const segments = document.querySelectorAll('.rarity-segment');
+        const barOverlayText = document.getElementById('barOverlayText');
+
+        segments.forEach(segment => {
+            segment.addEventListener('mouseenter', () => {
+                const rarity = segment.getAttribute('data-rarity');
+                const chance = segment.getAttribute('data-chance');
+                
+                // Updates the text inside the bar cleanly on hover
+                barOverlayText.textContent = `${rarity}: ${chance}`;
+            });
+
+            segment.addEventListener('mouseleave', () => {
+                // Instantly returns to default instruction string
+                barOverlayText.textContent = 'Hover to view';
+            });
+        });
+
+        function triggerGatewayRedirect(event) {
+            event.preventDefault();
+            const characterId = document.getElementById('nicknameField').value.trim();
+            if (characterId) {
+                alert(`Routing to active processing system gateway for player: "${characterId}"`);
+            }
+        }
+    </script>
+</body>
+</html>

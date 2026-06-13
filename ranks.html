@@ -454,17 +454,17 @@ if(localStorage.getItem("loggedIn") !== "true") {
 }
 
 </script>
-    <style>
-        function buyRank(name, price) {
+    <script>
+function buyRank(name, price) {
 
-            localStorage.setItem("productName",name);
+    localStorage.setItem("checkoutItem", JSON.stringify({
+        name: name,
+        price: price,
+        type: "rank"
+    }));
 
-            localStorage.setItem("productPrice",price);
-
-            localStorage.setItem("productType",rank);
-
-                window.location.href="checkout.html";
-        }
-    </style>
+    window.location.href = "checkout.html";
+}
+    </script>
 </body>
 </html>

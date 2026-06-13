@@ -626,6 +626,7 @@ let productType = product?.type || "case";
             }
     </script>
             <script>
+                alert(localStorage.getItem("checkoutItem"));
 const product = JSON.parse(localStorage.getItem("checkoutItem"));
 
 if (!product) {

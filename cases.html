@@ -426,17 +426,17 @@ if(localStorage.getItem("loggedIn") !== "true") {
 }
 
 </script>
-    <style>
-        function buyCase(name, price) {
+    <script>
+function buyCase(name, price) {
 
-            localStorage.setItem("productName",name);
+    localStorage.setItem("checkoutItem", JSON.stringify({
+        name: name,
+        price: price,
+        type: "case"
+    }));
 
-            localStorage.setItem("productPrice",price);
-
-            localStorage.setItem("productType","case");
-
-            window.location.href = "checkout.html";
-        }
-    </style>
+    window.location.href = "checkout.html";
+}
+    </script>
 </body>
 </html>

@@ -595,36 +595,7 @@
             }
         }
     </script>
-    <script>
-        let product = JSON.parse(localStorage.getItem("checkoutItem"));
-
-let productType = product?.type || "case"; 
-// "case" or "rank"
-        if (productType === "case") {
-
-    const segments = document.querySelectorAll('.rarity-segment');
-    const barOverlayText = document.getElementById('barOverlayText');
-
-    segments.forEach(segment => {
-        segment.addEventListener('mouseenter', () => {
-            const rarity = segment.getAttribute('data-rarity');
-            const chance = segment.getAttribute('data-chance');
-            barOverlayText.textContent = `${rarity}: ${chance}`;
-        });
-
-        segment.addEventListener('mouseleave', () => {
-            barOverlayText.textContent = 'Hover to view';
-        });
-    });
-
-} else {
-    // Rank → disable bar interaction cleanly
-    const barOverlayText = document.getElementById('barOverlayText');
-    if (barOverlayText) {
-        barOverlayText.textContent = "Not applicable for ranks";
-    }
-            }
-    </script>
+    
 <script>
 alert("SKRIPT RUNNING");
 const product = JSON.parse(localStorage.getItem("checkoutItem"));

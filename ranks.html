@@ -447,5 +447,12 @@
             alert(rankName + " has been added to your basket!");
         }
     </script>
+    <script>
+
+if(localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "loginpass.html";
+}
+
+</script>
 </body>
 </html>

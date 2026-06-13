@@ -9,6 +9,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
+        let product = JSON.parse(localStorage.getItem("checkoutItem"));
+
+let productType = product?.type || "case"; 
+// "case" or "rank"
+        if (productType === "case") {
+
+    const segments = document.querySelectorAll('.rarity-segment');
+    const barOverlayText = document.getElementById('barOverlayText');
+
+    segments.forEach(segment => {
+        segment.addEventListener('mouseenter', () => {
+            const rarity = segment.getAttribute('data-rarity');
+            const chance = segment.getAttribute('data-chance');
+            barOverlayText.textContent = `${rarity}: ${chance}`;
+        });
+
+        segment.addEventListener('mouseleave', () => {
+            barOverlayText.textContent = 'Hover to view';
+        });
+    });
+
+} else {
+    // Rank → disable bar interaction cleanly
+    const barOverlayText = document.getElementById('barOverlayText');
+    if (barOverlayText) {
+        barOverlayText.textContent = "Not applicable for ranks";
+    }
+}
         /* --- Reset & Creative Color Variables --- */
         * {
             box-sizing: border-box;

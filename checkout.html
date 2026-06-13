@@ -631,12 +631,12 @@ const product = JSON.parse(localStorage.getItem("checkoutItem"));
 if (!product) {
     alert("No product selected.");
     window.location.href = "index.html";
+} else {
+    document.getElementById("productName").textContent = product.name;
+
+    document.getElementById("productPrice").innerHTML =
+        product.price + " <span>Coins</span>";
 }
-
-document.getElementById("productName").textContent = product.name;
-
-document.getElementById("productPrice").innerHTML =
-    product.price + " <span>Coins</span>";
             </script>
 </body>
 </html>

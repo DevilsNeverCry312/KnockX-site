@@ -625,8 +625,8 @@ let productType = product?.type || "case";
     }
             }
     </script>
-            <script>
-                alert(localStorage.getItem("checkoutItem"));
+<script>
+alert("SKRIPT RUNNING");
 const product = JSON.parse(localStorage.getItem("checkoutItem"));
 
 if (!product) {
@@ -638,6 +638,6 @@ if (!product) {
     document.getElementById("productPrice").innerHTML =
         product.price + " <span>Coins</span>";
 }
-            </script>
+</script>
 </body>
 </html>

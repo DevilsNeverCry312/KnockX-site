@@ -487,12 +487,14 @@
             <div class="product-header-block">
                 <div class="product-image-frame"></div>
                 <div class="product-title-pricing">
-                    <h2>Spring Cases x25</h2>
+                    <h2 id="productName">Loading...</h2>
                     <div class="price-discount-row">
                         <span class="strike-through-price">222 Coins</span>
                         <span class="orange-discount-badge">-10%</span>
                     </div>
-                    <div class="bold-price-label">200 <span>Coins</span></div>
+                    <div class="bold-price-label" id="productPrice">
+    Loading...
+                    </div>
                 </div>
             </div>
 
@@ -623,5 +625,18 @@ let productType = product?.type || "case";
     }
             }
     </script>
+            <script>
+const product = JSON.parse(localStorage.getItem("checkoutItem"));
+
+if (!product) {
+    alert("No product selected.");
+    window.location.href = "index.html";
+}
+
+document.getElementById("productName").textContent = product.name;
+
+document.getElementById("productPrice").innerHTML =
+    product.price + " <span>Coins</span>";
+            </script>
 </body>
 </html>

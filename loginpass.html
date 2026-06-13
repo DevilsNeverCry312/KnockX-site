@@ -380,7 +380,9 @@
             
             if (usernameInput && passwordInput) {
                 // Client-side execution visual confirmation
-                alert(`Authentication request sent for: "${usernameInput}"`);
+                localStorage.setItem("loggedIn","true");
+                localStorage.setItem("username",usernameInput);
+                window.location.href = "ranks and guicase.html"
                 
                 // Ready for backend linkage (e.g., fetch authentication APIs)
             }

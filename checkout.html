@@ -567,158 +567,76 @@
         </div>
 
     </div>
+<script>
+(() => {
 
-    <script>
-        const segments = document.querySelectorAll('.rarity-segment');
-        const barOverlayText = document.getElementById('barOverlayText');
+    const product = JSON.parse(localStorage.getItem("checkoutItem"));
 
-        segments.forEach(segment => {
+    if (!product) {
+        alert("No product selected.");
+        window.location.href = "index.html";
+        return;
+    }
+
+    // ----------------------------
+    // PRODUCT DISPLAY
+    // ----------------------------
+    document.getElementById("productName").textContent = product.name;
+    document.getElementById("productPrice").innerHTML =
+        product.price + " <span>Coins</span>";
+
+    // ----------------------------
+    // CASE / RANK SWITCH
+    // ----------------------------
+    const productType = product.type || "case";
+    const barOverlayText = document.getElementById("barOverlayText");
+
+    if (productType === "case") {
+
+        document.querySelectorAll('.rarity-segment').forEach(segment => {
             segment.addEventListener('mouseenter', () => {
-                const rarity = segment.getAttribute('data-rarity');
-                const chance = segment.getAttribute('data-chance');
-                
-                // Updates the text inside the bar cleanly on hover
-                barOverlayText.textContent = `${rarity}: ${chance}`;
+                barOverlayText.textContent =
+                    ${segment.dataset.rarity}: ${segment.dataset.chance};
             });
 
             segment.addEventListener('mouseleave', () => {
-                // Instantly returns to default instruction string
                 barOverlayText.textContent = 'Hover to view';
             });
         });
 
-        function triggerGatewayRedirect(event) {
-            event.preventDefault();
-            const characterId = document.getElementById('nicknameField').value.trim();
-            if (characterId) {
-                alert(`Routing to active processing system gateway for player: "${characterId}"`);
-            }
-        }
-    </script>
-    <script>
-        let product = JSON.parse(localStorage.getItem("checkoutItem")) || {};
-let productType = product?.type || "case";
-
-if (productType === "case") {
-
-    const segments = document.querySelectorAll('.rarity-segment');
-    const barOverlayText = document.getElementById('barOverlayText');
-
-    segments.forEach(segment => {
-        segment.addEventListener('mouseenter', () => {
-            const rarity = segment.getAttribute('data-rarity');
-            const chance = segment.getAttribute('data-chance');
-            barOverlayText.textContent = `${rarity}: ${chance}`;
-        });
-
-        segment.addEventListener('mouseleave', () => {
-            barOverlayText.textContent = 'Hover to view';
-        });
-    });
-
-} else {
-
-    const barOverlayText = document.getElementById('barOverlayText');
-
-    if (barOverlayText) {
+    } else {
         barOverlayText.textContent = "Not applicable for ranks";
     }
-}
+
+    // ----------------------------
+    // RANK LOGIC
+    // ----------------------------
+    if (productType === "rank") {
+
+        const rankKey = product.name.toLowerCase().trim();
+
+        const luckLevels = {
+            gamer: 1,
+            skilled: 2,
+            expert: 4,
+            hero: 6,
+            king: 7,
+            legend: 8,
+            imperator: 10
+        };
+
+        const luck = luckLevels[rankKey] ?? 0;
+
+        document.getElementById("productInfo").innerHTML = `
+            <p>${product.name} Benefits:</p>
+            <ul>
+                <li>Permanent ${product.name} rank</li>
+                <li>Luck Level ${luck}</li>
+            </ul>
+        `;
+    }
+
+})();
 </script>
-    
-<script>
-const product = JSON.parse(localStorage.getItem("checkoutItem"));
-
-if (!product) {
-    alert("No product selected.");
-    window.location.href = "index.html";
-} else {
-    document.getElementById("productName").textContent = product.name;
-
-    document.getElementById("productPrice").innerHTML =
-        product.price + " <span>Coins</span>";
-}
-</script>
-    <script>
- const rankKey = product.name.trim().toLowerCase();
-
-const luckLevels = {
-    gamer: 1,
-    skilled: 2,
-    expert: 4,
-    hero: 6,
-    king: 7,
-    legend: 8,
-    imperator: 10
-};
-
-const productInfo = document.getElementById("productInfo");
-
-if (product.type === "rank") {
-
-    const luck = luckLevels[rankKey] ?? 0;
-
-    productInfo.innerHTML = `
-        <p>${product.name} Benefits:</p>
-        <ul>
-            <li>Permanent ${product.name} rank</li>
-            <li>Luck Level ${luck}</li>
-        </ul>
-    `;
-}
-        const rankKey = product.name.trim().toLowerCase();
-
-const luckLevels = {
-    gamer: 1,
-    skilled: 2,
-    expert: 4,
-    hero: 6,
-    king: 7,
-    legend: 8,
-    imperator: 10
-};
-
-const productInfo = document.getElementById("productInfo");
-
-if (product.type === "rank") {
-
-    const luck = luckLevels[rankKey] ?? 0;
-
-    productInfo.innerHTML = `
-        <p>${product.name} Benefits:</p>
-        <ul>
-            <li>Permanent ${product.name} rank</li>
-            <li>Luck Level ${luck}</li>
-        </ul>
-    `;
-}
-        const rankKey = product.name.trim().toLowerCase();
-
-const luckLevels = {
-    gamer: 1,
-    skilled: 2,
-    expert: 4,
-    hero: 6,
-    king: 7,
-    legend: 8,
-    imperator: 10
-};
-
-const productInfo = document.getElementById("productInfo");
-
-if (product.type === "rank") {
-
-    const luck = luckLevels[rankKey] ?? 0;
-
-    productInfo.innerHTML = `
-        <p>${product.name} Benefits:</p>
-        <ul>
-            <li>Permanent ${product.name} rank</li>
-            <li>Luck Level ${luck}</li>
-        </ul>
-    `;
-}
-        console.log("PRODUCT NAME:",product.name);
-    </script>
 </body>
 </html>

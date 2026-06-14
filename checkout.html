@@ -596,6 +596,7 @@
         }
     </script>
     <script>
+        let product = JSON.parse(localStorage.getItem("checkoutItem")) || {};
 let productType = product?.type || "case";
 
 if (productType === "case") {

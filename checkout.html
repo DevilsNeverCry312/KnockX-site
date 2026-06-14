@@ -615,7 +615,7 @@
 
         const rankKey = product.name
         .toLowerCase()
-        .replace(/rank/g,"")
+        .replace(/\[.*\]/g,"")
         .trim();
 
         const luckLevels = {

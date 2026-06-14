@@ -596,7 +596,7 @@
         document.querySelectorAll('.rarity-segment').forEach(segment => {
             segment.addEventListener('mouseenter', () => {
                 barOverlayText.textContent =
-                    ${segment.dataset.rarity}: ${segment.dataset.chance};
+                    `${segment.dataset.rarity}: ${segment.dataset.chance}`;
             });
 
             segment.addEventListener('mouseleave', () => {

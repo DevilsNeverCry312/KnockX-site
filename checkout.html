@@ -613,7 +613,10 @@
     // ----------------------------
     if (productType === "rank") {
 
-        const rankKey = product.name.toLowerCase().trim();
+        const rankKey = product.name
+        .toLowerCase()
+        .replace(/rank/g,"")
+        .trim();
 
         const luckLevels = {
             gamer: 1,
